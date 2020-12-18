@@ -23,19 +23,12 @@ object RetrofitBuilder {
         .build()
 
     suspend fun <T: Any> retrofitCall(call: suspend () -> Response<T>): Result<T> {
-            return try {
-                val response = call.invoke()
-                if (response.isSuccessful) {
-                    Result.Success(response.body()!!)
-                } else {
-                    if (response.code() == 403) {
-                        Log.i("responsecode", "პრობლემაა ინფოს აღებაზე")
-                    }
-                    Result.Error(response.errorBody()?.string() ?: "Something goes wrong")
-                }
-            } catch (e: Exception) {
-                Result.Error(e.message ?: "Internet error runs")
-            }
+        val response = call.invoke()
+        return if (response.isSuccessful) {
+            Result.Success(response.body()!!)
+        } else {
+            Result.Error(response.errorBody().toString())
+        }
     }
 
     private fun getInterceptor(): Interceptor {
