@@ -8,14 +8,6 @@
     android:paddingStart="20dp"
     android:paddingEnd="20dp">
 
-    <View
-        android:id="@+id/member_item_topline"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:background="#d8d8d8"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
     <TextView
         android:id="@+id/members_item_id"
         android:layout_width="20dp"
@@ -27,7 +19,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="1" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -41,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/members_item_name"
         app:layout_constraintStart_toEndOf="@+id/members_item_id"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/members_item_name"
@@ -55,7 +47,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/member_item_image"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="სახელი გვარი" />
 
     <TextView
@@ -70,7 +62,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="1სთ 15წთ" />
 
     <ImageButton
@@ -83,7 +75,7 @@
         android:src="@drawable/ic_remove_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
     <ImageButton
@@ -96,7 +88,14 @@
         android:src="@drawable/ic_key"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
+
+    <View
+        android:id="@+id/member_item_botline"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d8d8d8"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
