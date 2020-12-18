@@ -1,4 +1,4 @@
-package com.lukakordzaia.techincaltaskleavingstone.ui.members
+package com.lukakordzaia.techincaltaskleavingstone.ui.main
 
 import android.content.Context
 import android.text.SpannableStringBuilder

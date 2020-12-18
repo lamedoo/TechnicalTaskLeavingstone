@@ -26,10 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val appToolbar: MaterialToolbar = findViewById(R.id.main_toolbar)
-        setSupportActionBar(appToolbar)
-        setUpNavigation()
-
     }
 
     private fun setUpNavigation() {
@@ -39,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
                 topLevelDestinationIds = setOf(
-                        R.id.progressFragment,
                         R.id.mainFragment
                 )
         )

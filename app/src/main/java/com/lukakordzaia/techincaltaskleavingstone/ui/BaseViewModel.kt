@@ -11,7 +11,14 @@ abstract class BaseViewModel : ViewModel() {
     private val _navigateScreen = MutableLiveData<Event<NavDirections>>()
     val navigateScreen: LiveData<Event<NavDirections>> = _navigateScreen
 
+    private val _showProgress = MutableLiveData<Event<Boolean>>()
+    val showProgress: LiveData<Event<Boolean>> = _showProgress
+
     fun navigateToNewFragment(navId: NavDirections) {
         _navigateScreen.value = Event(navId)
+    }
+
+    fun showProgressBar(isLoading: Boolean) {
+        _showProgress.value = Event(isLoading)
     }
 }
