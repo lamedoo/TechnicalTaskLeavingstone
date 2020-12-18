@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/group_options_root"
+    android:paddingTop="20dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="68dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.groupoptions.GroupOptionsFragment">
+
+    <TextView
+        android:id="@+id/group_options_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ჯგუფის პარამეტრები"
+        android:textStyle="normal"
+        android:textSize="15.6sp"
+        android:textColor="@color/default_black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/helveticaneuegeocaps_75bold"/>
+
+    <View
+        android:id="@+id/group_options_title_under"
+        android:layout_width="45dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="6dp"
+        android:background="#efca14"
+        app:layout_constraintTop_toBottomOf="@id/group_options_title"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/group_options_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_close"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/group_options_divider_1"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="18.8dp"
+        android:background="#d8d8d8"
+        app:layout_constraintTop_toBottomOf="@id/group_options_title_under"/>
+
+    <LinearLayout
+        android:id="@+id/group_options_permissions_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_options_divider_1"
+        app:layout_constraintBottom_toTopOf="@id/group_options_divider_2">
+
+        <ImageView
+            android:id="@+id/group_options_permissions_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_permissions" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="უფლებების მინიჭება"
+            android:fontFamily="@font/helveticaneueltgeow82_65medium"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="@color/default_black"
+            android:lineSpacingExtra="-0.5sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/group_options_divider_2"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="8dp"
+        android:background="#d8d8d8"
+        app:layout_constraintTop_toBottomOf="@id/group_options_permissions_container"/>
+
+    <LinearLayout
+        android:id="@+id/group_options_remove_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_options_divider_2"
+        app:layout_constraintBottom_toTopOf="@id/group_options_divider_3">
+
+        <ImageView
+            android:id="@+id/group_options_remove_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_group_options_remove_user" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="წევრების წაშლა"
+            android:fontFamily="@font/helveticaneueltgeow82_65medium"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="@color/default_black"
+            android:lineSpacingExtra="-0.5sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/group_options_divider_3"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="8dp"
+        android:background="#d8d8d8"
+        app:layout_constraintTop_toBottomOf="@id/group_options_remove_container"/>
+
+    <LinearLayout
+        android:id="@+id/group_options_leave_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_options_divider_3"
+        app:layout_constraintBottom_toTopOf="@id/group_options_divider_4">
+
+        <ImageView
+            android:id="@+id/group_options_leave_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_leave_group" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:text="ჯგუფის დატოვება"
+            android:fontFamily="@font/helveticaneueltgeow82_65medium"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#ed2f3f"
+            android:lineSpacingExtra="-0.5sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/group_options_divider_4"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="8dp"
+        android:background="#d8d8d8"
+        app:layout_constraintTop_toBottomOf="@id/group_options_leave_container"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

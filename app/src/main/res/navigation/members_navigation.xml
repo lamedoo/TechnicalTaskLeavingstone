@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/members_navigation"
+    app:startDestination="@id/membersFragment">
+
+    <fragment
+        android:id="@+id/membersFragment"
+        android:name="com.lukakordzaia.techincaltaskleavingstone.ui.members.MembersFragment"
+        android:label="fragment_members"
+        tools:layout="@layout/fragment_members" >
+        <argument
+            android:name="userInfo"
+            app:argType="com.lukakordzaia.techincaltaskleavingstone.network.datamodels.FitnessInfo$Me" />
+    </fragment>
+</navigation>

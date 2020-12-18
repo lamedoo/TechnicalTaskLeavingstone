@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/members_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <View
+        android:id="@+id/member_item_topline"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d8d8d8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/members_item_id"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/helveticaneueltgeow82_65medium"
+        android:textColor="@color/default_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        tools:text="1" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/member_item_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/user_profile_placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/members_item_name"
+        app:layout_constraintStart_toEndOf="@+id/members_item_id"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"/>
+
+    <TextView
+        android:id="@+id/members_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18.3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/helveticaneueltgeow82_65medium"
+        android:textColor="@color/default_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/member_item_image"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        tools:text="სახელი გვარი" />
+
+    <TextView
+        android:id="@+id/members_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/helveticaneueltgeow82_65medium"
+        android:textColor="@color/default_black"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        tools:text="1სთ 15წთ" />
+
+    <ImageButton
+        android:id="@+id/members_item_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_remove_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/members_item_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/key_button_background"
+        android:src="@drawable/ic_key"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/member_item_topline"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
