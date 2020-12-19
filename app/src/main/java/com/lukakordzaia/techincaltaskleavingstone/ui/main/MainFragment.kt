@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -28,6 +29,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
+            requireContext().createToast(it, Toast.LENGTH_LONG)
+        })
+
         viewModel.getFitnessInfo()
 
         viewModel.showProgress.observe(viewLifecycleOwner, EventObserver {
@@ -86,14 +92,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     viewModel.setChosenMember(it)
                 },
                 {
-                    when (it) {
-                        "key" -> {
-                            createSnackBar(members_root, "უფლებების მინიჭება")
-                        }
-                        "remove" -> {
-                            createSnackBar(members_root, "ჯგუფიდან წაშლა")
-                        }
-                    }
+                    createSnackBar(members_nested_scroll, it)
                 }
         )
         rv_members.adapter = adapter
@@ -103,13 +102,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             adapter.getMembersList(it)
         })
 
-        members_root.setOnScrollChangeListener {
+        members_nested_scroll.setOnScrollChangeListener {
             v: NestedScrollView, _: Int, scrollY: Int, _: Int, _: Int ->
 
             if (scrollY == v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight) {
-                currentPage++
-                Log.d("currentpage", currentPage.toString())
-                viewModel.getMembersInfo(currentPage)
+
+                viewModel.hasMore.observe(viewLifecycleOwner, {
+                    if (!it) {
+                        rv_progressBar.setGone()
+                    } else {
+                        rv_progressBar.setVisible()
+                        currentPage++
+                        Log.d("currentpage", currentPage.toString())
+                        viewModel.getMembersInfo(currentPage)
+                    }
+                })
             }
         }
 
@@ -125,5 +132,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         })
     }
-
 }

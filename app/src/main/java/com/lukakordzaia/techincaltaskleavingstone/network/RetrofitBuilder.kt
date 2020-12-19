@@ -1,6 +1,5 @@
 package com.lukakordzaia.techincaltaskleavingstone.network
 
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +22,12 @@ object RetrofitBuilder {
         .build()
 
     suspend fun <T: Any> retrofitCall(call: suspend () -> Response<T>): Result<T> {
-        val response = call.invoke()
+        val response =  try {
+            call.invoke()
+        } catch (e: java.lang.Exception) {
+            return Result.Internet(false)
+        }
+
         return if (response.isSuccessful) {
             Result.Success(response.body()!!)
         } else {

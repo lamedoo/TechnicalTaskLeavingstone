@@ -86,13 +86,13 @@ class MembersAdapter(
 
         if (holder.memberKeyImageButton.isVisible) {
             holder.memberKeyImageButton.setOnClickListener {
-                onButtonClick("key")
+                onButtonClick("უფლებების მინიჭება")
             }
         }
 
         if (holder.memberRemoveImageButton.isVisible) {
             holder.memberRemoveImageButton.setOnClickListener {
-                onButtonClick("remove")
+                onButtonClick("ჯგუფიდან წაშლა")
             }
         }
 

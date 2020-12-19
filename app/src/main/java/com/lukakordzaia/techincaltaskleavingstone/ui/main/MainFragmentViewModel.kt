@@ -33,7 +33,8 @@ class MainFragmentViewModel : BaseViewModel() {
     private val _userInfo = MutableLiveData<FitnessInfo.Me>()
     val userInfo: LiveData<FitnessInfo.Me> = _userInfo
 
-    private val hasMore = MutableLiveData(true)
+    private val _hasMore = MutableLiveData(true)
+    val hasMore: LiveData<Boolean> = _hasMore
 
     private val membersList: MutableList<MembersInfo.Member> = ArrayList()
 
@@ -60,6 +61,9 @@ class MainFragmentViewModel : BaseViewModel() {
                 is Result.Error -> {
                     Log.d("fitnessinfoerror", fitnessInfo.exception)
                     showProgressBar(true)
+                }
+                is Result.Internet -> {
+                    newToastMessage("შეამოწმეთ ინტერნეტთან კავშირი")
                 }
             }
         }
@@ -90,7 +94,7 @@ class MainFragmentViewModel : BaseViewModel() {
     }
 
     fun getMembersInfo(page: Int) {
-        if (hasMore.value == true) {
+        if (_hasMore.value == true) {
             viewModelScope.launch {
                 when (val membersInfo = repository.getMembersInfo(page)) {
                     is Result.Success -> {
@@ -101,10 +105,13 @@ class MainFragmentViewModel : BaseViewModel() {
                             }
                             _membersInfo.value = membersList
                         }
-                        hasMore.value = data.hasMore
+                        _hasMore.value = data.hasMore
                     }
                     is Result.Error -> {
                         Log.d("membersinfoerror", membersInfo.exception)
+                    }
+                    is Result.Internet -> {
+                        newToastMessage("შეამოწმეთ ინტერნეტთან კავშირი")
                     }
                 }
             }
