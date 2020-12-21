@@ -20,6 +20,9 @@ import com.lukakordzaia.techincaltaskleavingstone.utils.setGone
 import com.lukakordzaia.techincaltaskleavingstone.utils.setVisible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.rv_members_item.view.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashSet
 
 
 class MembersAdapter(
@@ -115,7 +118,10 @@ class MembersAdapter(
         }
 
         holder.memberIdTextView.text = member.id.toString()
-        Picasso.get().load(member.imageUrl).into(holder.memberImageImageView)
+
+        val randomString = UUID.randomUUID().toString().substring(0,1)
+        Picasso.get().load("${member.imageUrl}?${randomString}").into(holder.memberImageImageView)
+
         holder.memberNameTextView.text = member.name
         holder.memberTimeTextView.text = hours
     }
