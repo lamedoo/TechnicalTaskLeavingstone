@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/progressFragment">
+    app:startDestination="@id/mainFragment">
 
-    <fragment
-        android:id="@+id/progressFragment"
-        android:name="com.lukakordzaia.techincaltaskleavingstone.ui.progress.ProgressFragment"
-        android:label="fragment_progress"
-        tools:layout="@layout/fragment_progress" >
-        <action
-            android:id="@+id/action_progressFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.lukakordzaia.techincaltaskleavingstone.ui.main.MainFragment"

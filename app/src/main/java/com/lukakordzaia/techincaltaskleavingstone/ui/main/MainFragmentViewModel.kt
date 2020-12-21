@@ -3,25 +3,23 @@ package com.lukakordzaia.techincaltaskleavingstone.ui.main
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lukakordzaia.techincaltaskleavingstone.network.Result
 import com.lukakordzaia.techincaltaskleavingstone.network.datamodels.FitnessInfo
 import com.lukakordzaia.techincaltaskleavingstone.network.datamodels.MembersInfo
 import com.lukakordzaia.techincaltaskleavingstone.repository.FitnessInfoRepository
-import com.lukakordzaia.techincaltaskleavingstone.repository.MembersInfoRepository
 import com.lukakordzaia.techincaltaskleavingstone.ui.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel : BaseViewModel() {
-    private val repository = MembersInfoRepository()
+    private val repository = FitnessInfoRepository()
 
     private val _fitnessInfo = MutableLiveData<FitnessInfo>()
     val fitnessInfo: LiveData<FitnessInfo> = _fitnessInfo
 
-    private val totalMembers = MutableLiveData<String>()
-    private val totalTime = MutableLiveData<String>()
-    private val avgTime = MutableLiveData<String>()
+    private var totalMembers = ""
+    private var totalTime = ""
+    private var avgTime = ""
 
     private val _clubInfo = MutableLiveData<List<String>>()
     val clubInfo: LiveData<List<String>> = _clubInfo
@@ -35,7 +33,7 @@ class MainFragmentViewModel : BaseViewModel() {
     private val _userInfo = MutableLiveData<FitnessInfo.Me>()
     val userInfo: LiveData<FitnessInfo.Me> = _userInfo
 
-    private val _hasMore = MutableLiveData<Boolean>(true)
+    private val _hasMore = MutableLiveData(true)
     val hasMore: LiveData<Boolean> = _hasMore
 
     private val membersList: MutableList<MembersInfo.Member> = ArrayList()
@@ -44,43 +42,51 @@ class MainFragmentViewModel : BaseViewModel() {
         navigateToNewFragment(MainFragmentDirections.actionMainFragmentToGroupOptionsFragment())
     }
 
-    fun getFitnessInfo(fitnessInfo: FitnessInfo) {
-        val data = fitnessInfo
-        _fitnessInfo.value = data
+    fun getFitnessInfo() {
+        viewModelScope.launch {
+            when (val fitnessInfo = repository.getFitnessInfo()) {
+                is Result.Success -> {
+                    val data = fitnessInfo.data
+                    _fitnessInfo.value = data
 
-        if (data.info != null) {
-            data.info.forEach {
-                when (it.key) {
-                    "წევრი" -> totalMembers.value = it.value ?: "N/A"
-                    "საშ. დრო" -> avgTime.value = it.value ?: "N/A"
-                    "სულ დრო" -> totalTime.value = it.value ?: "N/A"
+                    if (data.info != null) {
+                        setFitnessInfo(data.info)
+                    }
+                    if (data.me != null) {
+                        _userInfo.value = data.me
+                    }
+
+                    showProgressBar(false)
+                }
+                is Result.Error -> {
+                    Log.d("fitnessinfoerror", fitnessInfo.exception)
+                    showProgressBar(true)
+                }
+                is Result.Internet -> {
+                    newToastMessage("შეამოწმეთ ინტერნეტთან კავშირი")
                 }
             }
-            _clubInfo.value = listOf(totalMembers.value!!, avgTime.value!!, totalTime.value!!)
         }
+    }
 
-//        viewModelScope.launch {
-//            when (val fitnessInfo = repository.getFitnessInfo()) {
-//                is Result.Success -> {
-//                    val data = fitnessInfo.data
-//                    _fitnessInfo.value = data
-//
-//                    if (data.info != null) {
-//                        data.info.forEach {
-//                            when (it.key) {
-//                                "წევრი" -> totalMembers.value = it.value ?: "N/A"
-//                                "საშ. დრო" -> avgTime.value = it.value ?: "N/A"
-//                                "სულ დრო" -> totalTime.value = it.value ?: "N/A"
-//                            }
-//                        }
-//                        _clubInfo.value = listOf(totalMembers.value!!, avgTime.value!!, totalTime.value!!)
-//                    }
-//                }
-//                is Result.Error -> {
-//                    Log.d("fitnessinfoerror", fitnessInfo.exception)
-//                }
-//            }
-//        }
+    private fun setFitnessInfo(data: List<FitnessInfo.Info>) {
+        data.forEach { key ->
+            when (key.key) {
+                "წევრი" -> {
+                    val value = key.value?.filter { it.isDigit() }
+                    totalMembers = value ?: "N/A"
+                }
+                "საშ. დრო" -> {
+                    val value = key.value?.filter { it.isDigit() }
+                    avgTime = value ?: "N/A"
+                }
+                "სულ დრო" -> {
+                    val value = key.value?.filter { it.isDigit() }
+                    totalTime = value ?: "N/A"
+                }
+            }
+        }
+        _clubInfo.value = listOf(totalMembers, avgTime, totalTime)
     }
 
     fun setChosenMember(member: MembersInfo.Member) {
@@ -88,7 +94,7 @@ class MainFragmentViewModel : BaseViewModel() {
     }
 
     fun getMembersInfo(page: Int) {
-        if (hasMore.value == true) {
+        if (_hasMore.value == true) {
             viewModelScope.launch {
                 when (val membersInfo = repository.getMembersInfo(page)) {
                     is Result.Success -> {
@@ -100,19 +106,17 @@ class MainFragmentViewModel : BaseViewModel() {
                             _membersInfo.value = membersList
                         }
                         _hasMore.value = data.hasMore
-                        Log.d("memberslist", hasMore.value.toString())
                     }
                     is Result.Error -> {
                         Log.d("membersinfoerror", membersInfo.exception)
+                    }
+                    is Result.Internet -> {
+                        newToastMessage("შეამოწმეთ ინტერნეტთან კავშირი")
                     }
                 }
             }
         } else {
             Log.d("currentpage", "no more")
         }
-    }
-
-    fun getUserInfo(userInfo: FitnessInfo.Me) {
-        _userInfo.value = userInfo
     }
 }

@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lukakordzaia.techincaltaskleavingstone.R
-import com.lukakordzaia.techincaltaskleavingstone.utils.createSnackBar
 import kotlinx.android.synthetic.main.fragment_group_options.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_members.*
 
 class GroupOptionsFragment : BottomSheetDialogFragment() {
 
