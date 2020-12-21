@@ -31,7 +31,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
 
         viewModel.toastMessage.observe(viewLifecycleOwner, EventObserver {
-            requireContext().createToast(it, Toast.LENGTH_LONG)
+            requireContext().createToast(it)
         })
 
         viewModel.getFitnessInfo()
@@ -41,8 +41,24 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 main_progressBar.setGone()
                 main_toolbar_container.setVisible()
                 main_content.setVisible()
+                tv_no_internet.setGone()
+                no_internet_retry.setGone()
             }
         })
+
+        viewModel.noInternet.observe(viewLifecycleOwner, {
+            if (it) {
+                main_progressBar.setGone()
+                tv_no_internet.setVisible()
+                no_internet_retry.setVisible()
+            }
+        })
+
+        no_internet_retry.setOnClickListener {
+            viewModel.getFitnessInfo()
+            viewModel.getMembersInfo(currentPage)
+            main_progressBar.setVisible()
+        }
 
         //FIRST PART OF THE PAGE
         viewModel.fitnessInfo.observe(viewLifecycleOwner, {

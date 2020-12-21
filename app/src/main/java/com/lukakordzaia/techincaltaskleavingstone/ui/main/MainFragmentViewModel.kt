@@ -36,6 +36,9 @@ class MainFragmentViewModel : BaseViewModel() {
     private val _hasMore = MutableLiveData(true)
     val hasMore: LiveData<Boolean> = _hasMore
 
+    private val _noInternet = MutableLiveData(false)
+    val noInternet: LiveData<Boolean> = _noInternet
+
     private val membersList: MutableList<MembersInfo.Member> = ArrayList()
 
     fun onGroupOptionsPressed(){
@@ -63,6 +66,7 @@ class MainFragmentViewModel : BaseViewModel() {
                     showProgressBar(true)
                 }
                 is Result.Internet -> {
+                    _noInternet.value = true
                     newToastMessage("შეამოწმეთ ინტერნეტთან კავშირი")
                 }
             }
