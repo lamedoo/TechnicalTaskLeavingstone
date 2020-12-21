@@ -108,7 +108,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     viewModel.setChosenMember(it)
                 },
                 {
-                    createSnackBar(members_nested_scroll, it)
+                    createSnackBar(main_fragment_root, it)
                 }
         )
         rv_members.adapter = adapter

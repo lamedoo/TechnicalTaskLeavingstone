@@ -107,11 +107,11 @@ class MembersAdapter(
                 add("წთ")
             }
         }
-        val s: String = hours.toString()
+        val hoursString = SpannableStringBuilder(member.hours).toString()
         for (word in words) {
             val len = word!!.length
             var i = 0
-            while (s.indexOf(word, i).also { i = it } >= 0) {
+            while (hoursString.indexOf(word, i).also { i = it } >= 0) {
                 hours.setSpan(AbsoluteSizeSpan(11, true), i, i + len, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 i += len
             }
@@ -119,8 +119,7 @@ class MembersAdapter(
 
         holder.memberIdTextView.text = member.id.toString()
 
-        val randomString = UUID.randomUUID().toString().substring(0,1)
-        Picasso.get().load("${member.imageUrl}?${randomString}").into(holder.memberImageImageView)
+        Picasso.get().load("${member.imageUrl}?a").into(holder.memberImageImageView)
 
         holder.memberNameTextView.text = member.name
         holder.memberTimeTextView.text = hours
